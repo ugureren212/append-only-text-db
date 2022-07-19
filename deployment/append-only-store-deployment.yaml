@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: append-only-store-deployment
+  labels:
+    app: append-only-store
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: append-only-store
+  template:
+    metadata:
+      labels:
+        app: append-only-store
+    spec:
+      volumes:
+        - name: host-volume
+          persistentVolumeClaim:
+            claimName: append-only-store-pvc
+      containers:
+        - name: append-only-store
+          image: ghcr.io/net-reply-future-networks/k8s-golang-append-only-store:main
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: host-volume
+              mountPath: /tmp
+      imagePullSecrets:
+        - name: ghcr

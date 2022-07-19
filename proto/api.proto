@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option go_package = "google.golang.org/grpc/examples/helloworld/helloworld";
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+
+//TODO: change package name
+package helloworld;
+
+// The greeting service definition.
+service Datastore {
+rpc Set (SetRequest) returns (SetReply) {}
+rpc Get (GetRequest) returns (GetReply) {}
+rpc Del (DelRequest) returns (DelReply) {}
+}
+
+message SetRequest {
+string key = 2;
+string value = 3;
+}
+
+message GetRequest {
+string key = 1;
+}
+
+message DelRequest {
+string key = 1;
+}
+
+message SetReply {
+string message = 1;
+}
+
+message GetReply {
+string key = 2;
+string value = 3;
+}
+
+message DelReply {
+string message = 1;
+}
+    
